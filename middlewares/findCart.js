@@ -7,15 +7,15 @@ module.exports.findCart = async (req, res, next) => {
       params: { cartId },
     } = req;
 
-    const foundCart = await Cart.findById(cartId);
+    const cart = await Cart.findById(cartId);
 
-    if (!foundCart) {
+    if (!cart) {
       return next(createHttpError(404, "cart not found"));
     }
 
-    console.log(foundCart)
+    console.log(cart)
 
-    req.cart = foundCart;
+    req.cart = cart;
 
     next();
   } catch (error) {

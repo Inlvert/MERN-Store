@@ -24,12 +24,20 @@ module.exports.getCart = async (req, res, next) => {
         path: "cartProducts",
         populate: {
           path: "product",
-          select: "name description images price"
+          select: "name description images price",
         },
       });
-    
 
-    res.send({ data: cart });
+    // Total price
+    const totalPrice = cart.cartProducts.reduce((accumulator, currentValue) => {
+      const price = currentValue.product?.price || 0;
+      const quantity = currentValue.quantity || 1;
+      return accumulator + price * quantity;
+    }, 0);
+
+    console.log(totalPrice)
+
+    res.send({ data: cart, totalPrice });
   } catch (error) {
     next(error);
   }

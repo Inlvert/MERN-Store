@@ -8,7 +8,7 @@ module.exports.findAllCartProducts = async (req, res, next) => {
 
     const cartProducts = await CartProduct.find({
       cart: cart._id,
-    });
+    }).populate('product');
 
     console.log(cartProducts);
 

@@ -2,7 +2,7 @@ const { Cart } = require("../models");
 
 module.exports.createCart = async (req, res, next) => {
   try {
-    const {body} = req;
+    const { body } = req;
 
     const cart = await Cart.create(body);
 
@@ -18,10 +18,16 @@ module.exports.getCart = async (req, res, next) => {
       params: { cartId },
     } = req;
 
-    const cart = await Cart.findById(cartId).populate('cartProducts');
-
-    // console.log(cart);
-    // console.log(user);
+    const cart = await Cart.findById(cartId)
+      .populate("user", "firstName")
+      .populate({
+        path: "cartProducts",
+        populate: {
+          path: "product",
+          select: "name description images price"
+        },
+      });
+    
 
     res.send({ data: cart });
   } catch (error) {
@@ -31,12 +37,10 @@ module.exports.getCart = async (req, res, next) => {
 
 module.exports.getCarts = async (req, res, next) => {
   try {
-
     const carts = await Cart.find();
 
-    res.send({data: carts})
-    
+    res.send({ data: carts });
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};

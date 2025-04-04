@@ -52,8 +52,6 @@ module.exports.addProductToCart = async (req, res, next) => {
     console.log("cartId", cartId);
     console.log("quantity", quantity);
 
-    // find the product
-
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });

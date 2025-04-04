@@ -18,7 +18,7 @@ module.exports.getCart = async (req, res, next) => {
       params: { cartId },
     } = req;
 
-    const cart = await Cart.findById(cartId);
+    const cart = await Cart.findById(cartId).populate('cartProducts');
 
     // console.log(cart);
     // console.log(user);

@@ -2,7 +2,6 @@ const { User } = require("../models");
 const createHttpErrors = require("http-errors");
 const AuthService = require("../services/auth.service");
 
-
 module.exports.registration = async (req, res, next) => {
   try {
     const { body } = req;
@@ -43,6 +42,10 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.refresh = async (req, res, next) => {
   try {
+    const { tokenInstance } = req;
+
+    const userWithToken = await AuthService.refreshSession(tokenInstance);
+    res.send({ data: userWithToken });
   } catch (error) {
     next(error);
   }

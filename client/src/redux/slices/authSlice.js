@@ -44,10 +44,14 @@ const refresh = createAsyncThunk(
   }
 );
 
-
 const authSlice = createSlice({
   name: SLICE_NAME,
   initialState,
+  reducers: {
+    logout: (state) => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
       state.isLoading = true;
@@ -79,6 +83,8 @@ const authSlice = createSlice({
 
 const { reducer: authReducer, actions } = authSlice;
 
-export {login, refresh}
+export const { logout } = actions;
+
+export { login, refresh };
 
 export default authReducer;

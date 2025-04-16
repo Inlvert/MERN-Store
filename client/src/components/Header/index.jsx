@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/slices/authSlice";
+import { clearToken } from "../../api";
 
 function Header(props) {
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.auth);
+
+  const hendleLogout = () => {
+    clearToken();
+    dispatch(logout());
+  };
+
   return (
     <header>
       <nav>
@@ -22,6 +34,10 @@ function Header(props) {
             </NavLink>
           </li>
         </ul>
+        <span style={{ color: "white" }}>
+          Hello {user ? `${user.firstName} ${user.lastName}` : "Guest"}
+        </span>
+        <button onClick={hendleLogout}>Logout</button>
       </nav>
     </header>
   );

@@ -30,7 +30,7 @@ httpClient.interceptors.response.use(
 
       accessToken = tokenPair.accessToken;
 
-      localStorage.setItem("refreshToken", tokenPair.refreshToken);
+      localStorage.setItem(CONSTANTS.REFRESH_TOKEN, tokenPair.refreshToken);
     }
     return response;
   },
@@ -51,7 +51,7 @@ httpClient.interceptors.response.use(
 
       accessToken = tokenPair.accessToken;
 
-      localStorage.setItem("refreshToken", tokenPair.refreshToken);
+      localStorage.setItem(CONSTANTS.REFRESH_TOKEN, tokenPair.refreshToken);
 
       error.config.headers["Authorization"] = `Bearer ${accessToken}`;
 

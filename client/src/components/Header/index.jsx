@@ -3,6 +3,9 @@ import { NavLink } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
 import { clearToken } from "../../api";
+import style from "./Header.module.scss";
+import Burger from "../Burger";
+
 
 function Header(props) {
   const dispatch = useDispatch();
@@ -15,21 +18,25 @@ function Header(props) {
   };
 
   return (
-    <header>
-      <nav>
-        <ul>
+    <header className={style.headerCover}>
+      <nav className={style.nav}>
+        <a href="/" className={style.navLink}>
+          <h3>Store</h3>
+        </a>
+        <Burger/>
+        <ul className={style.navItem}>
           <li>
-            <NavLink to="/" end>
+            <NavLink to="/" end className={style.navLink}>
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/login" end>
+            <NavLink to="/login" end className={style.navLink}>
               Login
             </NavLink>
           </li>
           <li>
-            <NavLink to="/registration" end>
+            <NavLink to="/registration" end className={style.navLink}>
               Registration
             </NavLink>
           </li>

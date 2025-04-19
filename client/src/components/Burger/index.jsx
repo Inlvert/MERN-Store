@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styles from './Burger.module.scss'
 import classNames from 'classnames'
 
-function Burger() {
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+function Burger(props) {
+  
+  const {isMenuOpen, setIsMenuOpen} = props
+ 
   const hendleClick = () => {
     setIsMenuOpen(!isMenuOpen)
   }

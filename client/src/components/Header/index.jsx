@@ -1,16 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
 import { clearToken } from "../../api";
 import style from "./Header.module.scss";
 import Burger from "../Burger";
-
+import classNames from "classnames";
 
 function Header(props) {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const menuClass = classNames(style.navItem, {
+    [style.hiddenDisplay]: isMenuOpen,
+  });
 
   const hendleLogout = () => {
     clearToken();
@@ -23,8 +29,7 @@ function Header(props) {
         <a href="/" className={style.navLink}>
           <h3>Store</h3>
         </a>
-        <Burger/>
-        <ul className={style.navItem}>
+        <ul className={menuClass}>
           <li>
             <NavLink to="/" end className={style.navLink}>
               Home
@@ -40,11 +45,16 @@ function Header(props) {
               Registration
             </NavLink>
           </li>
+          <li>
+            <span style={{ color: "white" }}>
+              Hello {user ? `${user.firstName} ${user.lastName}` : "Guest"}
+            </span>
+          </li>
+          <li>
+            <button onClick={hendleLogout}>Logout</button>
+          </li>
         </ul>
-        <span style={{ color: "white" }}>
-          Hello {user ? `${user.firstName} ${user.lastName}` : "Guest"}
-        </span>
-        <button onClick={hendleLogout}>Logout</button>
+        <Burger isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       </nav>
     </header>
   );

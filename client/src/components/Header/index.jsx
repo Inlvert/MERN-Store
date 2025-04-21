@@ -18,7 +18,7 @@ function Header(props) {
     [style.hiddenDisplay]: isMenuOpen,
   });
 
-  const hendleLogout = () => {
+  const hendleLogut = () => {
     clearToken();
     dispatch(logout());
   };
@@ -51,7 +51,7 @@ function Header(props) {
             </span>
           </li>
           <li>
-            <button onClick={hendleLogout}>Logout</button>
+            <button onClick={hendleLogut}>Logout</button>
           </li>
         </ul>
         <Burger isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />

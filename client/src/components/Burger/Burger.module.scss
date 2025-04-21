@@ -35,3 +35,9 @@
   transform: rotate(-45deg) translate(7px, -7px);
   transition: ease-out 0.5s;
 }
+
+@media screen and (min-width: 760px) {
+  .burger{
+    display: none;
+  }
+}

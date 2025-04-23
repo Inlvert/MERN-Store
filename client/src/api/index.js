@@ -69,6 +69,13 @@ httpClient.interceptors.response.use(
 
 export const registration = (userData) =>
   httpClient.post("/auth/registration", userData);
+
 export const login = (userData) => httpClient.post("/auth/login", userData);
+
 export const refresh = (token) =>
   httpClient.post("/auth/refresh", { refreshToken: token });
+
+export const createProduct = async (productData) => {
+  const response = await httpClient.post("/products", productData);
+  return response;
+};

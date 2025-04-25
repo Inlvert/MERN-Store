@@ -75,6 +75,11 @@ function Header(props) {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/admin" end className={themeClassLinkColor}>
+              Admin
+            </NavLink>
+          </li>
+          <li>
             <span className={themeClassGreetingColor}>
               Hello {user ? `${user.firstName} ${user.lastName}` : "Guest"}
             </span>

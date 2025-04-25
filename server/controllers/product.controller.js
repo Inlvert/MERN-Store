@@ -2,13 +2,19 @@ const { Product, Cart, CartProduct } = require("../models");
 
 module.exports.createProduct = async (req, res, next) => {
   try {
-    const { body } = req;
-    const product = await Product.create(body);
+    const { body, files } = req;
+
+    const images = files.map((file) => file.filename);
+
+    const product = await Product.create({ ...body, images });
 
     console.log(product);
+    console.log("BODY:", req.body);
+    console.log("FILES:", req.files);
 
     res.status(201).send({ data: product });
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
@@ -69,10 +75,12 @@ module.exports.addProductToCart = async (req, res, next) => {
     });
 
     await cart.updateOne({
-      $push: { cartProducts: cartProduct._id}
-    })
+      $push: { cartProducts: cartProduct._id },
+    });
 
-    res.status(200).json({ message: "Product added to cart", data: cartProduct });
+    res
+      .status(200)
+      .json({ message: "Product added to cart", data: cartProduct });
   } catch (error) {
     next(error);
   }

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import CONSTANTS from "./constants";
 import { refresh } from "./redux/slices/authSlice";
+import AdminPage from "./pages/Admin";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registration" element={<RegistartionPage />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </header>
     </div>

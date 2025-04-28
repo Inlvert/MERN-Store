@@ -1,19 +1,25 @@
 import { Route, Routes } from "react-router";
-import "./App.css";
+import style from "./App.module.scss";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegistartionPage from "./pages/Registration";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import CONSTANTS from "./constants";
 import { refresh } from "./redux/slices/authSlice";
 import AdminPage from "./pages/Admin";
+import classNames from "classnames";
 
 function App() {
   const dispatch = useDispatch();
-  
-  useEffect(() => {
+  const { theme } = useSelector((state) => state.theme);
 
+  const backgroundColor = classNames({
+    [style.light]: theme === "light",
+    [style.dark]: theme === "dark",
+  });
+
+  useEffect(() => {
     const refreshTokenFromLS = localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
 
     if (refreshTokenFromLS) {
@@ -22,7 +28,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <header className="App-header">
+      <header className={backgroundColor}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />

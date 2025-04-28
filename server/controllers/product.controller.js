@@ -21,11 +21,23 @@ module.exports.createProduct = async (req, res, next) => {
 
 module.exports.getAllProducts = async (req, res, next) => {
   try {
-    const products = await Product.find();
+    const {
+      query: { page = 1, limit = 5 },
+    } = req;
 
+    const products = await Product.find()
+      .limit(limit * 1)
+      .skip((page - 1) * limit);
+
+    const count = await Product.countDocuments()
+    
     console.log(products);
 
-    res.send({ data: products });
+    res.send({
+      data: products,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
   } catch (error) {
     next(error);
   }

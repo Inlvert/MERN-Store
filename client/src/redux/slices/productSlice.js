@@ -6,6 +6,8 @@ const SLICE_NAME = "products";
 const initialState = {
   products: [],
   isLoading: false,
+  totalPages: 0,
+  currentPage: 1,
   error: null,
 };
 
@@ -28,9 +30,32 @@ const createProduct = createAsyncThunk(
   }
 );
 
+const getProducts = createAsyncThunk(
+  `${SLICE_NAME}/getProducts`,
+  async (page, thunkAPI) => {
+    try {
+      const response = await API.getProducts(page);
+
+      const { data, totalPages, currentPage } = response;
+
+      return { data, totalPages, currentPage };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.data.errors);
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: SLICE_NAME,
   initialState,
+  reducers: {
+    nextPage: (state) => {
+      state.currentPage = +state.currentPage + 1;
+    },
+    prevPage: (state) => {
+      state.currentPage = +state.currentPage - 1;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(createProduct.pending, (state) => {
       state.isLoading = true;
@@ -43,11 +68,28 @@ const productSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
+
+    builder.addCase(getProducts.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getProducts.fulfilled, (state, action) => {
+      const { data, totalPages, currentPage } = action.payload;
+      state.isLoading = false;
+      state.products = data;
+      state.totalPages = totalPages;
+      state.currentPage = currentPage;
+    });
+    builder.addCase(getProducts.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
   },
 });
 
 const { reducer: productReducer, actions } = productSlice;
 
-export { createProduct };
+export const { nextPage, prevPage } = actions;
+
+export { createProduct, getProducts };
 
 export default productReducer;

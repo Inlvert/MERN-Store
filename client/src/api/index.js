@@ -79,3 +79,12 @@ export const createProduct = async (productData) => {
   const response = await httpClient.post("/products", productData);
   return response;
 };
+
+export const getProducts = async (page) => {
+  const response = await httpClient.get(`/products?page=${page}`);
+  return {
+    data: response.data.data,
+    totalPage: response.data.totalPages,
+    currentPage: +response.data.currentPage,
+  }
+};

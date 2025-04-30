@@ -84,7 +84,7 @@ export const getProducts = async (page) => {
   const response = await httpClient.get(`/products?page=${page}`);
   return {
     data: response.data.data,
-    totalPage: response.data.totalPages,
+    totalPages: response.data.totalPages,
     currentPage: +response.data.currentPage,
   }
 };

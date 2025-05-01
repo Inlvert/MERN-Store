@@ -29,8 +29,8 @@ module.exports.getAllProducts = async (req, res, next) => {
       .limit(limit * 1)
       .skip((page - 1) * limit);
 
-    const count = await Product.countDocuments()
-    
+    const count = await Product.countDocuments();
+
     console.log(products);
 
     res.send({
@@ -45,13 +45,7 @@ module.exports.getAllProducts = async (req, res, next) => {
 
 module.exports.getProductById = async (req, res, next) => {
   try {
-    const {
-      params: { productId },
-    } = req;
-
-    const product = await Product.findById(productId);
-
-    console.log(product);
+    const { product } = req;
 
     res.send({ data: product });
   } catch (error) {

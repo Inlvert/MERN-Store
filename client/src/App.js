@@ -9,6 +9,7 @@ import CONSTANTS from "./constants";
 import { refresh } from "./redux/slices/authSlice";
 import AdminPage from "./pages/Admin";
 import classNames from "classnames";
+import ProductDetailsPage from "./pages/ProductDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registration" element={<RegistartionPage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/products/:productId" element={<ProductDetailsPage />} />
         </Routes>
       </header>
     </div>

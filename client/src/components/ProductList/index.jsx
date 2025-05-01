@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, nextPage, prevPage } from "../../redux/slices/productSlice";
+import {
+  getProducts,
+  nextPage,
+  prevPage,
+  setPage,
+} from "../../redux/slices/productSlice";
 import styles from "./ProductList.module.scss";
 import CONSTANTS from "../../constants";
 import placeholderImg from "../../assets/placeholder.png";
@@ -27,6 +32,24 @@ function ProductList() {
     }
   };
 
+  const renderPageNumbers = () => {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(
+        <button
+          key={i}
+          onClick={() => dispatch(setPage(i))}
+          className={`${styles.btn} ${
+            currentPage === i ? styles.activeBtn : ""
+          }`}
+        >
+          {i}
+        </button>
+      );
+    }
+    return pages;
+  };
+
   return (
     <div>
       <h1>ProductList</h1>
@@ -47,7 +70,7 @@ function ProductList() {
           </li>
         ))}
       </ul>
-      <div>
+      <div className={styles.paginationContainer}>
         <button
           onClick={handlePrevPage}
           disabled={currentPage === 1}
@@ -55,6 +78,7 @@ function ProductList() {
         >
           Prev
         </button>
+        {renderPageNumbers()}
         <button
           onClick={handleNextPage}
           disabled={currentPage === totalPages}

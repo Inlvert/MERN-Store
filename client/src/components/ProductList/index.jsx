@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router";
 import {
   getProducts,
   nextPage,
@@ -56,17 +57,19 @@ function ProductList() {
       <ul className={styles.ulCover}>
         {products.map((product) => (
           <li key={product._id} className={styles.liCover}>
-            <img
-              src={
-                product.images && product.images.length > 0
-                  ? `${CONSTANTS.HTTP_SERVER_URL}/images/${product.images[0]}`
-                  : placeholderImg
-              }
-              alt=""
-              className={styles.imageWrapper}
-            />
-            <h1>{product.name}</h1>
-            <h1>{product.price}-$</h1>
+            <NavLink to={`/products/${product._id}`} className={styles.navLinl}>
+              <img
+                src={
+                  product.images && product.images.length > 0
+                    ? `${CONSTANTS.HTTP_SERVER_URL}/images/${product.images[0]}`
+                    : placeholderImg
+                }
+                alt=""
+                className={styles.imageWrapper}
+              />
+              <h1>{product.name}</h1>
+              <h1>{product.price}-$</h1>
+            </NavLink>
           </li>
         ))}
       </ul>

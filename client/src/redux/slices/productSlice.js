@@ -55,6 +55,9 @@ const productSlice = createSlice({
     prevPage: (state) => {
       state.currentPage = +state.currentPage - 1;
     },
+    setPage: (state, action) => {
+      state.currentPage = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(createProduct.pending, (state) => {
@@ -88,7 +91,7 @@ const productSlice = createSlice({
 
 const { reducer: productReducer, actions } = productSlice;
 
-export const { nextPage, prevPage } = actions;
+export const { nextPage, prevPage, setPage } = actions;
 
 export { createProduct, getProducts };
 

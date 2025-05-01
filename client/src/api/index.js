@@ -86,5 +86,10 @@ export const getProducts = async (page) => {
     data: response.data.data,
     totalPages: response.data.totalPages,
     currentPage: +response.data.currentPage,
-  }
+  };
+};
+
+export const getProduct = async (productId) => {
+  const response = await httpClient.get(`/products/${productId}`);
+  return response;
 };

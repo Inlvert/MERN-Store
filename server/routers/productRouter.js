@@ -1,5 +1,6 @@
 const productRouter = require("express").Router();
 const productController = require("../controllers/product.controller");
+const { findProduct } = require("../middlewares/findProduct");
 const { isAdmin } = require("../middlewares/isAdmin");
 const { imageUpload } = require('../utils/imageUpload')
 
@@ -10,7 +11,7 @@ productRouter
 
 productRouter
   .route("/:productId")
-  .get(productController.getProductById)
+  .get(findProduct, productController.getProductById)
   .post(productController.addProductToCart);
 
 module.exports = productRouter;

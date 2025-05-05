@@ -1,3 +1,19 @@
+.cover {
+  display: flex;
+}
+
+.imageSideLeft {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.imageSideRight {
+  flex: 1;
+  flex-direction: column;
+  text-align: center;
+}
+
 .mainImage {
   text-align: center;
   margin-bottom: 20px;

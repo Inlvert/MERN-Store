@@ -10,6 +10,7 @@ import { refresh } from "./redux/slices/authSlice";
 import AdminPage from "./pages/Admin";
 import classNames from "classnames";
 import ProductDetailsPage from "./pages/ProductDetails";
+import CartPage from "./pages/Cart/inldex";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
           <Route path="/registration" element={<RegistartionPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/products/:productId" element={<ProductDetailsPage />} />
+          <Route path="/cart/:cartId" element={<CartPage />} />
         </Routes>
       </header>
     </div>

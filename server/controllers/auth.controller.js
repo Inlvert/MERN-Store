@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Cart } = require("../models");
 const createHttpErrors = require("http-errors");
 const AuthService = require("../services/auth.service");
 
@@ -7,6 +7,14 @@ module.exports.registration = async (req, res, next) => {
     const { body } = req;
 
     const user = await User.create(body);
+
+    const cart = await Cart.create({userId: user._id});
+
+    user.cart = cart._id;
+
+    await user.save();
+
+    console.log(user)
 
     const userWithToken = await AuthService.createSession(user);
 

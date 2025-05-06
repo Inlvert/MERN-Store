@@ -7,6 +7,8 @@ import style from "./Header.module.scss";
 import Burger from "../Burger";
 import classNames from "classnames";
 import ThemeToggler from "../ThemeToggler";
+import { ReactComponent as CartIcon } from "../../assets/svg/cart.svg";
+
 
 function Header(props) {
   const dispatch = useDispatch();
@@ -87,6 +89,12 @@ function Header(props) {
           <li>
             <button onClick={hendleLogut}>Logout</button>
           </li>
+          <li>
+            <NavLink to="/cart" end className={themeClassLinkColor}>
+              <CartIcon className={themeClassLinkColor}/>
+            </NavLink>
+          </li>
+          
         </ul>
         <Burger isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       </nav>

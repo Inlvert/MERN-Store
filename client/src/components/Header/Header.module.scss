@@ -11,7 +11,7 @@
 
 .nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -30,16 +30,20 @@
 
 .navLinkLight {
   color: rgb(0, 0, 0);
+  fill: rgb(0, 0, 0);
   &:hover {
     color: rgb(255, 255, 255);
+    fill: rgb(255, 255, 255);
     font-weight: bold;
   }
 }
 
 .navLinkDark {
   color: white;
+  fill: white;
   &:hover {
     color: red;
+    fill: red;
     font-weight: bold;
   }
 }
@@ -64,7 +68,7 @@
 }
 
 .hiddenDisplayLight {
-  background-color: #7a7a7a;;
+  background-color: #7a7a7a;
 }
 
 .hiddenDisplayDark {

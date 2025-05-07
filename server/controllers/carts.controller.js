@@ -15,7 +15,7 @@ module.exports.createCart = async (req, res, next) => {
 module.exports.getCart = async (req, res, next) => {
   try {
     const {
-      params: { cartId },
+      body: { cartId },
     } = req;
 
     const cart = await Cart.findById(cartId)

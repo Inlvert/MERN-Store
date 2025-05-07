@@ -93,3 +93,11 @@ export const getProduct = async (productId) => {
   const response = await httpClient.get(`/products/${productId}`);
   return response;
 };
+
+export const getCart = async (cartData) => {
+  const response = await httpClient.get(`/car`, cartData);
+  return {
+    cartData: response.data.cart,
+    totalPrice: response.data.totalPrice,
+  };
+};

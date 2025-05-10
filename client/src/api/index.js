@@ -101,3 +101,10 @@ export const getCart = async (cartData) => {
     totalPrice: response.data.totalPrice,
   };
 };
+
+export const addProductToCart = async ({ productId, quantity }) => {
+  const response = await httpClient.post(`/products/${productId}`, {
+    quantity,
+  });
+  return response;
+};

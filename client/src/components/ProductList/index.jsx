@@ -6,6 +6,7 @@ import {
   nextPage,
   prevPage,
   setPage,
+  addProductToCart,
 } from "../../redux/slices/productSlice";
 import styles from "./ProductList.module.scss";
 import CONSTANTS from "../../constants";
@@ -16,6 +17,8 @@ function ProductList() {
   const { products, totalPages, currentPage } = useSelector(
     (state) => state.product
   );
+  const user = useSelector((state) => state.auth?.user);
+  const cartId = useSelector((state) => state.auth?.user?.cart);
 
   useEffect(() => {
     dispatch(getProducts(currentPage));
@@ -51,6 +54,10 @@ function ProductList() {
     return pages;
   };
 
+  const hendleAddProductToCart = (productId) => {
+    dispatch(addProductToCart({ productId, cartId, quantity: 1 }));
+  };
+
   return (
     <div>
       <h1>ProductList</h1>
@@ -70,6 +77,9 @@ function ProductList() {
               <h1>{product.name}</h1>
               <h1>{product.price}-$</h1>
             </NavLink>
+            <button onClick={() => hendleAddProductToCart(product._id)}>
+              add to cart
+            </button>
           </li>
         ))}
       </ul>

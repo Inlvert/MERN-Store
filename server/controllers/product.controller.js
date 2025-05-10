@@ -1,4 +1,4 @@
-const { Product, Cart, CartProduct } = require("../models");
+const { Product, Cart, CartProduct, User } = require("../models");
 
 module.exports.createProduct = async (req, res, next) => {
   try {
@@ -56,33 +56,50 @@ module.exports.getProductById = async (req, res, next) => {
 module.exports.addProductToCart = async (req, res, next) => {
   try {
     const {
-      params: { productId },
-      body: { cartId, quantity },
+      product,
+      body: { quantity },
+      tokenData: { id },
     } = req;
 
-    console.log("productId", productId);
-    console.log("cartId", cartId);
+    console.log("tokenData", id);
+    console.log("product is", product);
     console.log("quantity", quantity);
 
-    const product = await Product.findById(productId);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
+    const user = await User.findById(id).populate("cart");
 
-    const cart = await Cart.findById(cartId);
+    const cart = user.cart;
+    console.log(cart);
+
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
 
-    const cartProduct = await CartProduct.create({
+    const existingCartProduct = await CartProduct.findOne({
       cart: cart._id,
-      product: productId,
-      quantity: 1,
+      product: product._id,
     });
 
-    await cart.updateOne({
-      $push: { cartProducts: cartProduct._id },
-    });
+    let cartProduct;
+
+    if (existingCartProduct) {
+      existingCartProduct.quantity += quantity;
+      await existingCartProduct.save();
+      cartProduct = existingCartProduct;
+    } else {
+      cartProduct = await CartProduct.create({
+        cart: cart._id,
+        product: product._id,
+        quantity,
+      });
+      cart.cartProducts.push(cartProduct._id);
+      await cart.save();
+    }
+
+    // await cart.updateOne({
+    //   $push: { cartProducts: cartProduct._id },
+    // });
+
+    console.log("cartProduct", cartProduct);
 
     res
       .status(200)

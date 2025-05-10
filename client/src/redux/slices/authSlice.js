@@ -8,6 +8,7 @@ const initialState = {
   isLoading: false,
   error: null,
   isAuthenticated: false,
+  cart: null,
 };
 
 const login = createAsyncThunk(

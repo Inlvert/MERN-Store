@@ -5,7 +5,7 @@ const { checkAccessToken } = require("../middlewares/token.mw");
 userRouter
   .route("/")
   .post(userController.createUser)
-  .get(checkAccessToken, userController.getUsers);
+  .get(userController.getUsers);
 
 userRouter
   .route("/:userId")

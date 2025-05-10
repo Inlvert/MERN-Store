@@ -6,6 +6,7 @@ const SLICE_NAME = "products";
 const initialState = {
   products: [],
   product: null,
+  cart: [],
   isLoading: false,
   totalPages: 0,
   currentPage: 1,
@@ -57,6 +58,43 @@ const getProduct = createAsyncThunk(
       } = response;
 
       return product;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.data.errors);
+    }
+  }
+);
+
+const addProductToCart = createAsyncThunk(
+  `${SLICE_NAME}/addProductToCart`,
+  async ({ productId, quantity }, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const user = state.auth.user;
+
+      if (!user) {
+        console.log("User not authenticated");
+        return thunkAPI.rejectWithValue("User not authenticated");
+      }
+
+      const response = await API.addProductToCart({
+        productId,
+        quantity,
+      });
+
+      const {
+        data: {
+          data: { cartProduct },
+        },
+      } = response;
+
+      console.log("Sending request to add product to cart:", {
+        productId,
+        quantity,
+      });
+
+      console.log("Product successfully added to cart:", cartProduct);
+
+      return cartProduct;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.data.errors);
     }
@@ -116,6 +154,18 @@ const productSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
+
+    builder.addCase(addProductToCart.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addProductToCart.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.cart.push(action.payload);
+    });
+    builder.addCase(addProductToCart.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
   },
 });
 
@@ -123,6 +173,6 @@ const { reducer: productReducer, actions } = productSlice;
 
 export const { nextPage, prevPage, setPage } = actions;
 
-export { createProduct, getProducts, getProduct };
+export { createProduct, getProducts, getProduct, addProductToCart };
 
 export default productReducer;

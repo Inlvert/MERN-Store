@@ -3,10 +3,13 @@ const cartController = require("../controllers/carts.controller");
 const { findCart } = require("../middlewares/findCart");
 const cartProductRouter = require("./cartProductRouter");
 
-cartRouter.route("/").post(cartController.createCart).get(cartController.getCarts);
+cartRouter
+  .route("/")
+  .post(cartController.getCart);
+  // .get(cartController.getCarts);
 
-cartRouter.route("/:cartId").get(cartController.getCart);
+// cartRouter.route("/:cartId").get(cartController.getCart);
 
-cartRouter.use("/:cartId/cartproducts",findCart , cartProductRouter);
+// cartRouter.use("/:cartId/cartproducts", findCart, cartProductRouter);
 
 module.exports = cartRouter;

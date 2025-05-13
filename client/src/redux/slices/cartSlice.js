@@ -5,23 +5,40 @@ const SLICE_NAME = "carts";
 
 let initialState = {
   cart: {
-    cartProducts: [],
+    CartProducts: [],
   },
   totalPrice: 0,
   isLoading: false,
   error: null,
 };
 
+// const getCart = createAsyncThunk(
+//   `${SLICE_NAME}/getCartProducts`,
+//   async (cartId, thunkAPI) => {
+//     try {
+//       const response = await API.getCart(cartId);
+
+//       const { cart, totalPrice } = response;
+
+//       return { cart, totalPrice };
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.response.data.data.errors);
+//     }
+//   }
+// );
+
 const getCart = createAsyncThunk(
-  `${SLICE_NAME}/getCart`,
+  `${SLICE_NAME}/getCartProducts`,
   async (cartData, thunkAPI) => {
+    console.log(cartData);
     try {
       const response = await API.getCart(cartData);
 
       const {
-        data: { data: cart },
-        totalPrice,
+        data: { data: cart, totalPrice },
       } = response;
+
+      return { cart, totalPrice };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.data.errors);
     }
@@ -34,7 +51,7 @@ const cartSlice = createSlice({
   reducers: {
     clearCart: (state) => {
       state.totalPrice = 0;
-      state.cart.cartProducts = [];
+      state.cartProducts = [];
     },
   },
   extraReducers: (builder) => {
@@ -43,7 +60,8 @@ const cartSlice = createSlice({
     });
     builder.addCase(getCart.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.cart = action.payload;
+      state.cart = action.payload.cart;
+      state.totalPrice = action.payload.totalPrice;
     });
     builder.addCase(getCart.rejected, (state, action) => {
       state.isLoading = false;

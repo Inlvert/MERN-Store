@@ -82,6 +82,7 @@ export const createProduct = async (productData) => {
 
 export const getProducts = async (page) => {
   const response = await httpClient.get(`/products?page=${page}`);
+  console.log(response.data);
   return {
     data: response.data.data,
     totalPages: response.data.totalPages,
@@ -94,17 +95,15 @@ export const getProduct = async (productId) => {
   return response;
 };
 
-export const getCart = async (cartData) => {
-  const response = await httpClient.get(`/car`, cartData);
-  return {
-    cartData: response.data.cart,
-    totalPrice: response.data.totalPrice,
-  };
-};
 
 export const addProductToCart = async ({ productId, quantity }) => {
   const response = await httpClient.post(`/products/${productId}`, {
     quantity,
   });
+  return response;
+};
+
+export const getCart = async (cartId) => {
+  const response = await httpClient.post(`/cart`, cartId);
   return response;
 };

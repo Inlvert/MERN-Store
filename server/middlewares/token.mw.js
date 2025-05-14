@@ -17,6 +17,7 @@ module.exports.checkAccessToken = async (req, res, next) => {
     const tokenPayload = await JwtService.verifyAccessToken(token);
 
     req.tokenData = tokenPayload;
+    
     next();
   } catch (error) {
     next(error);

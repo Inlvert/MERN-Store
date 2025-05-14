@@ -4,9 +4,7 @@ import * as API from "../../api";
 const SLICE_NAME = "carts";
 
 let initialState = {
-  cart: {
-    CartProducts: [],
-  },
+  cartProducts: [],
   totalPrice: 0,
   isLoading: false,
   error: null,
@@ -60,7 +58,7 @@ const cartSlice = createSlice({
     });
     builder.addCase(getCart.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.cart = action.payload.cart;
+      state.cartProducts = action.payload.cart.cartProducts;
       state.totalPrice = action.payload.totalPrice;
     });
     builder.addCase(getCart.rejected, (state, action) => {

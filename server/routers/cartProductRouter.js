@@ -8,6 +8,7 @@ cartProductRouter
 
 cartProductRouter
   .route("/:cartProductId")
-  .put(cartProductController.updateProductQuantity);
+  .put(cartProductController.updateProductQuantity)
+  .delete(cartProductController.deleteProductFromCart);
 
 module.exports = cartProductRouter;

@@ -113,3 +113,8 @@ export const updateQuantityProduct = async (cartProductId, quantity) => {
   });
   return response;
 };
+
+export const deleteProductFromCart = async (cartProductId) => {
+  const response = await httpClient.delete(`cart-products/${cartProductId}`);
+  return response;
+};

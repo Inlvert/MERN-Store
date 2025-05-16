@@ -28,6 +28,25 @@ const updateQuantity = createAsyncThunk(
   }
 );
 
+const deleteProductFromCart = createAsyncThunk(
+  `${SLICE_NAME}/deleteProductFromCart`,
+  async (cartProductId, thunkAPI) => {
+    try {
+      const response = await API.deleteProductFromCart(cartProductId);
+
+      const {
+        data: {
+          data: { deleteProduct },
+        },
+      } = response;
+
+      return deleteProduct;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.data.errors);
+    }
+  }
+);
+
 const cartProductSlice = createSlice({
   name: SLICE_NAME,
   initialState,
@@ -48,11 +67,25 @@ const cartProductSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
+
+    builder.addCase(deleteProductFromCart.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteProductFromCart.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.products = state.products.filter(
+        (product) => product._id !== action.payload._id
+      );
+    });
+    builder.addCase(deleteProductFromCart.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
   },
 });
 
 const { reducer: cartProductReducer, actions } = cartProductSlice;
 
-export { updateQuantity };
+export { updateQuantity, deleteProductFromCart };
 
 export default cartProductReducer;

@@ -95,7 +95,6 @@ export const getProduct = async (productId) => {
   return response;
 };
 
-
 export const addProductToCart = async ({ productId, quantity }) => {
   const response = await httpClient.post(`/products/${productId}`, {
     quantity,
@@ -105,5 +104,12 @@ export const addProductToCart = async ({ productId, quantity }) => {
 
 export const getCart = async (cartId) => {
   const response = await httpClient.post(`/cart`, cartId);
+  return response;
+};
+
+export const updateQuantityProduct = async (cartProductId, quantity) => {
+  const response = await httpClient.put(`cart-products/${cartProductId}`, {
+    quantity,
+  });
   return response;
 };

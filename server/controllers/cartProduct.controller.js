@@ -24,7 +24,24 @@ module.exports.updateProductQuantity = async (req, res, next) => {
     ).populate("product", "name price");
 
     res.send({ data: updatedCartProduct });
+  } catch (error) {
+    next(error);
+  }
+};
 
+module.exports.deleteProductFromCart = async (req, res, next) => {
+  try {
+    const {
+      params: { cartProductId },
+    } = req;
+
+    const deleteProduct = await CartProduct.findByIdAndDelete(cartProductId, {
+      new: true,
+    });
+
+    console.log(deleteProduct);
+
+    res.send({ data: deleteProduct });
   } catch (error) {
     next(error);
   }

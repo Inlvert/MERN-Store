@@ -4,7 +4,7 @@ import { getCart } from "../../redux/slices/cartSlice";
 import CONSTANTS from "../../constants";
 import placeholderImg from "../../assets/placeholder.png";
 import styles from "./CartList.module.scss";
-import { updateQuantity } from "../../redux/slices/cartProductSlice";
+import { updateQuantity, deleteProductFromCart } from "../../redux/slices/cartProductSlice";
 import { NavLink } from "react-router";
 
 const CartList = () => {
@@ -57,6 +57,11 @@ const CartList = () => {
     }
   };
 
+  const deleteProduct = (cartProductId) => {
+    dispatch(deleteProductFromCart(cartProductId));
+    dispatch(getCart({ cartId }));
+  }
+
   return (
     <div>
       <h2>CartList</h2>
@@ -83,6 +88,7 @@ const CartList = () => {
             />
             <button onClick={() => incrementQuantity(item._id)}>+</button>— $
             {item.product.price}
+            <button onClick={() => deleteProduct(item._id)}>delete product</button>
           </li>
         ))}
       </ul>

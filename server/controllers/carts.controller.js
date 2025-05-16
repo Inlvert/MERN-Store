@@ -24,7 +24,7 @@ module.exports.getCart = async (req, res, next) => {
         path: "cartProducts",
         populate: {
           path: "product",
-          select: "name description images price",
+          select: "name category description images price",
         },
       });
 

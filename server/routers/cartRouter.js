@@ -5,8 +5,8 @@ const cartProductRouter = require("./cartProductRouter");
 
 cartRouter
   .route("/")
-  .post(cartController.getCart);
-  // .get(cartController.getCarts);
+  .post(cartController.getCart)
+  .get(cartController.getCarts);
 
 // cartRouter.route("/:cartId").get(cartController.getCart);
 

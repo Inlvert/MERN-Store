@@ -15,5 +15,7 @@ router.use("/products", productRouter);
 router.use("/cart", cartRouter);
 router.use("/users2", users2Router);
 
+router.use("/cart-products", cartProductRouter)
+
 
 module.exports = router;

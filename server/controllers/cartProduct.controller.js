@@ -1,18 +1,30 @@
 const { CartProduct } = require("../models");
 
-module.exports.findAllCartProducts = async (req, res, next) => {
+module.exports.findAllProductFromCartProduct = async (req, res, next) => {
   try {
-    const { cart } = req;
+    const foundProducts = await CartProduct.find();
 
-    console.log('cart id is: ', cart._id,)
+    res.send({ data: foundProducts });
+  } catch (error) {
+    next(error);
+  }
+};
 
-    const cartProducts = await CartProduct.find({
-      cart: cart._id,
-    }).populate('product');
+module.exports.updateProductQuantity = async (req, res, next) => {
+  try {
+    const {
+      params: { cartProductId },
+      body: { quantity },
+    } = req;
 
-    console.log(cartProducts);
+    const updatedCartProduct = await CartProduct.findByIdAndUpdate(
+      cartProductId,
+      { quantity },
+      { new: true }
+    ).populate("product", "name price");
 
-    res.send({ data: cartProducts });
+    res.send({ data: updatedCartProduct });
+
   } catch (error) {
     next(error);
   }

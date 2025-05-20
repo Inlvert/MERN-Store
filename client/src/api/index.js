@@ -118,3 +118,8 @@ export const deleteProductFromCart = async (cartProductId) => {
   const response = await httpClient.delete(`cart-products/${cartProductId}`);
   return response;
 };
+
+export const createOrder = async (orderData) => {
+  const response = await httpClient.post("orders", orderData);
+  return response;
+};

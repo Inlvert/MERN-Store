@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart } from "../../redux/slices/cartSlice";
+import { clearCart, getCart } from "../../redux/slices/cartSlice";
 import CONSTANTS from "../../constants";
 import placeholderImg from "../../assets/placeholder.png";
 import styles from "./CartList.module.scss";
-import { updateQuantity, deleteProductFromCart } from "../../redux/slices/cartProductSlice";
+import {
+  updateQuantity,
+  deleteProductFromCart,
+} from "../../redux/slices/cartProductSlice";
 import { NavLink } from "react-router";
+import { createOrder } from "../../redux/slices/orderSlice";
 
 const CartList = () => {
   const products = useSelector((state) => state.cart.cartProducts);
@@ -60,7 +64,21 @@ const CartList = () => {
   const deleteProduct = (cartProductId) => {
     dispatch(deleteProductFromCart(cartProductId));
     dispatch(getCart({ cartId }));
-  }
+  };
+
+  const handleCreateOrder = () => {
+    const orderData = {
+      cartId,
+      products: products.map((item) => ({
+        product: item.product._id,
+        quantity: item.quantity,
+      })),
+      totalPrice,
+    };
+
+    dispatch(createOrder(orderData));
+    dispatch(clearCart());
+  };
 
   return (
     <div>
@@ -88,11 +106,14 @@ const CartList = () => {
             />
             <button onClick={() => incrementQuantity(item._id)}>+</button>— $
             {item.product.price}
-            <button onClick={() => deleteProduct(item._id)}>delete product</button>
+            <button onClick={() => deleteProduct(item._id)}>
+              delete product
+            </button>
           </li>
         ))}
       </ul>
       <h3>{`Total Price - $ ${totalPrice}`}</h3>
+      <button onClick={handleCreateOrder}>send order</button>
     </div>
   );
 };

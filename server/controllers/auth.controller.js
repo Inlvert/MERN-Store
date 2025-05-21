@@ -8,13 +8,13 @@ module.exports.registration = async (req, res, next) => {
 
     const user = await User.create(body);
 
-    const cart = await Cart.create({userId: user._id});
+    const cart = await Cart.create({ userId: user._id });
 
     user.cart = cart._id;
 
     await user.save();
 
-    console.log(user)
+    console.log(user);
 
     const userWithToken = await AuthService.createSession(user);
 

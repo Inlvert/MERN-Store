@@ -20,9 +20,19 @@ module.exports.createOrder = async (req, res, next) => {
       return accumulator + price * quantity;
     }, 0);
 
+    // const order = await Order.create({
+    //   user: userId,
+    //   cartProduct: cartProducts.map((item) => item._id),
+    //   totalPrice,
+    // });
+
     const order = await Order.create({
       user: userId,
-      cartProduct: cartProducts.map((item) => item._id),
+      cartProduct: cartProducts.map((item) => ({
+        product: item.product._id,
+        quantity: item.quantity,
+        price: item.product.price,
+      })),
       totalPrice,
     });
 
@@ -31,6 +41,38 @@ module.exports.createOrder = async (req, res, next) => {
     console.log(order);
 
     res.status(201).send({ data: order });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.getAllOrders = async (req, res, next) => {
+  try {
+    const orders = await Order.find();
+
+    console.log(orders);
+
+    res.send({ data: orders });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.getAllUserOrders = async (req, res, next) => {
+  try {
+    const user = req.tokenData.id;
+
+    const orders = await Order.find({ user }).populate({
+      path: "cartProduct",
+      populate: {
+        path: "product",
+        select: "name price images",
+      },
+    });
+
+    console.log(orders);
+
+    res.send({ data: orders });
   } catch (error) {
     next(error);
   }

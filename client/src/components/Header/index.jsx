@@ -90,6 +90,11 @@ function Header(props) {
             <button onClick={hendleLogut}>Logout</button>
           </li>
           <li>
+            <NavLink to="/users" end className={themeClassLinkColor}>
+              Account
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/cart" end className={themeClassLinkColor}>
               <CartIcon className={themeClassLinkColor}/>
             </NavLink>

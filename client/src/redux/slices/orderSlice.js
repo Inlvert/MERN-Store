@@ -5,6 +5,7 @@ const SLICE_NAME = "orders";
 
 let initialState = {
   products: [],
+  orders: [],
   totalPrice: 0,
   isLoading: false,
   error: null,
@@ -23,6 +24,24 @@ const createOrder = createAsyncThunk(
       console.log(order);
 
       return order;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.data.errors);
+    }
+  }
+);
+
+const getAllUserOrders = createAsyncThunk(
+  `${SLICE_NAME}/getAllUserOrders`,
+  async (_, thunkAPI) => {
+    try {
+      const response = await API.getAllUserOrders();
+      const {
+        data: { data: orders },
+      } = response;
+
+      console.log(orders);
+
+      return orders;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.data.errors);
     }
@@ -51,6 +70,17 @@ const orderSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
+    builder.addCase(getAllUserOrders.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getAllUserOrders.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.orders = action.payload;
+    });
+    builder.addCase(getAllUserOrders.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
   },
 });
 
@@ -58,6 +88,6 @@ const { reducer: orderReducer, actions } = orderSlice;
 
 // export const { clearCart } = actions;
 
-export { createOrder };
+export { createOrder, getAllUserOrders };
 
 export default orderReducer;

@@ -123,3 +123,8 @@ export const createOrder = async (orderData) => {
   const response = await httpClient.post("orders", orderData);
   return response;
 };
+
+export const getAllUserOrders = async () => {
+  const response = await httpClient.get("orders/my-orders");
+  return response;
+}

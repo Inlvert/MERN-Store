@@ -1,0 +1,44 @@
+.cover{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accordion {
+  background-color: #dfdfdf;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 500px;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  margin: 2px;
+
+  &:hover {
+    background-color: #ccc;
+  }
+}
+
+.panel {
+  padding: 0px 18px;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  max-height: 0;
+}
+
+.panelOpen {
+  max-height: 1000px;
+}
+
+.liCover {
+  padding: 20px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}

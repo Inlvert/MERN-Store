@@ -19,7 +19,7 @@ const OrderList = () => {
     if (userId) {
       dispatch(getAllUserOrders());
     }
-  }, [userId]);
+  }, [dispatch, userId]);
 
   const handleClick = (orderId) => {
     setOpenOrders((prevState) => ({

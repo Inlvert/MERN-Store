@@ -1,0 +1,98 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+
+  &__wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__slide {
+    position: relative;
+    width: 100%;
+
+    &:hover .carousel__button {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &__image {
+    width: 100vw;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__text {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    background: rgba(0, 0, 0, 0); // прозорий фон за замовчуванням
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: background 0.3s ease, opacity 0.3s ease;
+
+    &.left {
+      left: 0;
+    }
+
+    &.right {
+      right: 0;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.3); // фон при наведенні
+    }
+  }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    z-index: 1; // нижче за кнопки
+    position: relative;
+
+    .dot {
+      height: 10px;
+      width: 10px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .active {
+      background-color: #333;
+    }
+  }
+}

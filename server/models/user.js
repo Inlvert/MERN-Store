@@ -19,6 +19,7 @@ const userSchema = new Schema(
     },
     isOnline: { type: Boolean, default: false },
     cart: { type: Schema.Types.ObjectId, ref: "Cart" },
+    favorite: { type: Schema.Types.ObjectId, ref: "Favorite" },
   },
   { timestamps: true }
 );

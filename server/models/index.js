@@ -8,6 +8,7 @@ const Message = require("./message");
 const CartProduct = require("./cartProduct");
 const RefreshToken = require("./refreshToken");
 const Order = require("./order");
+const Favorite = require("./favorite");
 
 async function connectToDb() {
   await mongoose.connect(DB_URL);
@@ -23,5 +24,6 @@ module.exports = {
   User2,
   Message,
   RefreshToken,
-  Order
+  Order,
+  Favorite
 };

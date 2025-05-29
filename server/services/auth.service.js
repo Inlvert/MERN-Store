@@ -9,6 +9,7 @@ module.exports.createSession = async (user) => {
     lastName: user.lastName,
     role: user.role,
     cart: user.cart,
+    favorite: user.favorite,
   };
 
   const tokenPair = await JwtService.createTokenPair(tokenPayload);
@@ -37,6 +38,7 @@ module.exports.refreshSession = async (refreshTokenInstance) => {
     lastName: user.lastName,
     role: user.role,
     cart: user.cart,
+    favorite: user.favorite,
   };
 
   const tokenPair = await JwtService.createTokenPair(tokenPayload);

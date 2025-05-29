@@ -39,8 +39,6 @@ module.exports.deleteProductFromCart = async (req, res, next) => {
       new: true,
     });
 
-    console.log(deleteProduct);
-
     res.send({ data: deleteProduct });
   } catch (error) {
     next(error);

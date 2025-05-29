@@ -35,9 +35,6 @@ module.exports.getCart = async (req, res, next) => {
       return accumulator + price * quantity;
     }, 0);
 
-    console.log('totalPrice', totalPrice)
-    console.log('cart', cart)
-
     res.send({ data: cart, totalPrice });
   } catch (error) {
     next(error);

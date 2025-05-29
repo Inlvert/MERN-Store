@@ -1,4 +1,4 @@
-const { Product, Cart, CartProduct, User } = require("../models");
+const { Product, Cart, CartProduct, User, Favorite } = require("../models");
 
 module.exports.createProduct = async (req, res, next) => {
   try {
@@ -31,8 +31,6 @@ module.exports.getAllProducts = async (req, res, next) => {
 
     const count = await Product.countDocuments();
 
-    console.log(products);
-
     res.send({
       data: products,
       totalPages: Math.ceil(count / limit),
@@ -60,10 +58,6 @@ module.exports.addProductToCart = async (req, res, next) => {
       body: { quantity },
       tokenData: { id },
     } = req;
-
-    console.log("tokenData", id);
-    console.log("product is", product);
-    console.log("quantity", quantity);
 
     const user = await User.findById(id).populate("cart");
 
@@ -95,15 +89,30 @@ module.exports.addProductToCart = async (req, res, next) => {
       await cart.save();
     }
 
-    // await cart.updateOne({
-    //   $push: { cartProducts: cartProduct._id },
-    // });
-
-    console.log("cartProduct", cartProduct);
-
     res
       .status(200)
       .json({ message: "Product added to cart", data: cartProduct });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.addProductToFavorite = async (req, res, next) => {
+  try {
+    const {
+      tokenData: { id: userId },
+      product: { _id: productId },
+    } = req;
+
+    const favorite = await Favorite.findOne({ user: userId });
+    
+    console.log("favorite", favorite);
+    if (!favorite.products.includes(productId)) {
+      favorite.products.push(productId);
+      await favorite.save();
+    }
+
+    res.status(200).json({ message: "Product added to favorites", favorite });
   } catch (error) {
     next(error);
   }

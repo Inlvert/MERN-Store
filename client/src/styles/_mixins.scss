@@ -1,0 +1,35 @@
+@mixin light {
+  background-color: white;
+  color: black;
+}
+
+@mixin dark {
+  background-color: #292929;
+  color: white;
+}
+
+@mixin lightNav {
+  background-color: #ececec;
+  color: black;
+}
+
+@mixin darkNav {
+  background-color: #222222;
+  color: white;
+}
+
+@mixin linkLight {
+  color: black;
+  &:hover {
+    font-weight: bold;
+    transform: scale(1.05);
+  }
+}
+
+@mixin linkDark {
+  color: white;
+  &:hover {
+    font-weight: bold;
+    transform: scale(1.05);
+  }
+}

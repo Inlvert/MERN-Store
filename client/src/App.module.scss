@@ -1,11 +1,11 @@
-.light {
-  background-color: #cacaca;
-  min-height: 100vh;
-  color: black
-}
+@use "./styles/mixins";
 
 .light {
-  background-color: #2b2b2b;
+  @include mixins.light;
   min-height: 100vh;
-  color: white
+}
+
+.dark {
+  @include mixins.dark;
+  min-height: 100vh;
 }

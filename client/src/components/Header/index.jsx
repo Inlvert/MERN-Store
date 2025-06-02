@@ -9,7 +9,6 @@ import classNames from "classnames";
 import ThemeToggler from "../ThemeToggler";
 import { ReactComponent as CartIcon } from "../../assets/svg/cart.svg";
 
-
 function Header(props) {
   const dispatch = useDispatch();
 
@@ -44,7 +43,7 @@ function Header(props) {
     [style.hiddenDisplayDark]: theme === "dark",
   });
 
-  const mixClass = classNames(menuClass, themeClasshiddenDisplayColor)
+  const mixClass = classNames(menuClass, themeClasshiddenDisplayColor);
 
   const hendleLogut = () => {
     clearToken();
@@ -54,10 +53,18 @@ function Header(props) {
   return (
     <header className={themeClassBackground}>
       <nav className={style.nav}>
-        <a href="/" className={themeClassLinkColor}>
-          <h3>Store</h3>
-        </a>
+        <div className={style.navTop}>
+          <a href="/" className={themeClassLinkColor}>
+            <h3>Store</h3>
+          </a>
+          <Burger isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        </div>
         <ul className={mixClass}>
+          <li>
+            <a href="/" className={themeClassLinkColor}>
+              <h3>Store</h3>
+            </a>
+          </li>
           <li>
             <ThemeToggler />
           </li>
@@ -96,12 +103,10 @@ function Header(props) {
           </li>
           <li>
             <NavLink to="/cart" end className={themeClassLinkColor}>
-              <CartIcon className={themeClassLinkColor}/>
+              <CartIcon className={themeClassLinkColor} />
             </NavLink>
           </li>
-          
         </ul>
-        <Burger isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       </nav>
     </header>
   );

@@ -4,19 +4,19 @@ import classNames from "classnames";
 
 const images = [
   {
-    url: "/images/one.png",
+    url: "/images/Rectangle 2.png",
     title: "One",
     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     id: 0,
   },
   {
-    url: "/images/two.jpg",
+    url: "/images/Rectangle 6.png",
     title: "Two",
     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     id: 1,
   },
   {
-    url: "/images/three.png",
+    url: "/images/Rectangle 5.png",
     title: "Three",
     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     id: 2,

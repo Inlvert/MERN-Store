@@ -1,12 +1,12 @@
 import React from "react";
-import Header from "../../components/Header";
+import Header2 from "../../components/Header2"
 import ProductList from "../../components/ProductList";
 import Carousel from "../../components/Carousel ";
 
 function HomePage(props) {
   return (
     <div>
-      <Header />
+      <Header2 />
       <Carousel />
       <h1>HomePage</h1>
       <ProductList />

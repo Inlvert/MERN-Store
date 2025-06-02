@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../../components/Header";
+import Header2 from "../../components/Header2";
 import OrderList from "../../components/OrderList";
 
 const AccountPage = () => {
   return (
     <div>
-      <Header />
+      <Header2 />
       <h1>AccountPage</h1>
       <OrderList />
     </div>

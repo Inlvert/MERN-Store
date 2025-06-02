@@ -1,0 +1,77 @@
+@use "../../styles/mixins";
+
+.header {
+  padding: 10px 20px;
+}
+
+.light {
+  @include mixins.lightNav;
+}
+
+.dark {
+  @include mixins.darkNav;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  overflow-wrap: normal;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  gap: 5px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+}
+.link{
+  text-decoration: none;
+  padding: 10px 15px;
+  transition: background 0.3s ease;
+}
+
+.linkLight {
+  @include mixins.linkLight
+}
+
+.linkDark {
+  @include mixins.linkDark
+}
+
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+
+@media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .menuOpen {
+    max-height: 800px;
+    padding: 20px 0;
+  }
+}

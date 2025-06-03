@@ -9,8 +9,14 @@
   }
 
   &__slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
-    width: 100%;
+
+    @media (min-width: 768px) {
+      align-items: stretch;
+    }
 
     &:hover .carousel__button {
       opacity: 1;
@@ -19,27 +25,60 @@
   }
 
   &__image {
-    width: 100vw;
+    width: 100%;
     height: auto;
     object-fit: cover;
     display: block;
   }
 
   &__text {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
     text-align: center;
+    
+    color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 
     h2 {
       font-size: 2rem;
+      margin-bottom: 10px;
     }
 
     p {
       font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: white;
+      color: black;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+
+    @media (min-width: 768px) {
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      max-width: 400px;
+      background-color: transparent;
+      text-align: left;
+
+      h2 {
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
     }
   }
 
@@ -48,7 +87,7 @@
     top: 0;
     bottom: 0;
     width: 60px;
-    background: rgba(0, 0, 0, 0); // прозорий фон за замовчуванням
+    background: rgba(0, 0, 0, 0);
     border: none;
     color: white;
     font-size: 2.5rem;
@@ -70,15 +109,15 @@
     }
 
     &:hover {
-      background: rgba(0, 0, 0, 0.3); // фон при наведенні
+      background: rgba(0, 0, 0, 0.3);
     }
   }
 
   &__dots {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-    z-index: 1; // нижче за кнопки
+    margin-top: 15px;
+    z-index: 1;
     position: relative;
 
     .dot {

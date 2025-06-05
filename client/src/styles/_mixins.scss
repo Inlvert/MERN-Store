@@ -33,3 +33,13 @@
     transform: scale(1.05);
   }
 }
+
+@mixin btnForLightTheme {
+  background-color: black;;
+  color: white;
+}
+
+@mixin btnForDarkTheme {
+  background-color: white;
+  color: black;
+}

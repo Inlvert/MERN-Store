@@ -1,37 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Carousel.module.scss";
 import classNames from "classnames";
-
-const images = [
-  {
-    url: "/images/Rectangle 6.png",
-    title: "FIND CLOTHES THAT MATCHES YOUR STYLE",
-    text: "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
-    id: 0,
-    buttonText: "By now",
-    buttonUrl: "/login",
-  },
-  {
-    url: "/images/Rectangle 7.png",
-    title: "2FIND CLOTHES THAT MATCHES YOUR STYLE",
-    text: "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
-    id: 1,
-    buttonText: "By now",
-    buttonUrl: "/login",
-  },
-  {
-    url: "/images/Rectangle 5.png",
-    title: "3FIND CLOTHES THAT MATCHES YOUR STYLE",
-    text: "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
-    id: 2,
-    buttonText: "By now",
-    buttonUrl: "/login",
-  },
-];
+import { useSelector } from "react-redux";
+import images from "./images";
+import { NavLink } from "react-router";
 
 const Carousel = () => {
+  const { theme } = useSelector((state) => state.theme);
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef(null);
+
+  console.log(theme);
 
   const clearAutoScroll = () => {
     if (intervalRef.current) {
@@ -60,38 +39,59 @@ const Carousel = () => {
     return () => clearAutoScroll();
   }, []);
 
-  const lButton = classNames(styles.carousel__button, styles.left);
-  const rButton = classNames(styles.carousel__button, styles.right);
+  const themeClassLinkColor = classNames(styles.btn, {
+    [styles.btnLight]: theme === "light",
+    [styles.btnDark]: theme === "dark",
+  });
+
+  console.log(images[current].buttonUrl);
 
   return (
-    <div className={styles.carousel}>
-      <div className={styles.carousel__wrapper}>
-        <div className={styles.carousel__slide}>
-          
-          <div className={styles.carousel__text}>
-            <h2>{images[current].title}</h2>
-            <p>{images[current].text}</p>
-            <button
-              onClick={() => (window.location.href = images[current].buttonUrl)}
-            >
-              {images[current].buttonText}
-            </button>
+    <div className={styles.cover}>
+      <div className={styles.slide}>
+        <div className={styles.text}>
+          <h2>{images[current].title}</h2>
+          <p>{images[current].text}</p>
+          <NavLink to="/login" end className={themeClassLinkColor}>
+            {images[current].buttonText}
+          </NavLink>
+          <div className={styles.coverDivRelative}>
+            <div className={styles.coverDiv}>
+              <h1>200+</h1>
+              <h5>International brends</h5>
+            </div>
+            <div className={styles.coverDiv}>
+              <h1>2,000+</h1>
+              <h5>High-Quality Products</h5>
+            </div>
+            <div className={styles.coverDiv}>
+              <h1>30,000+</h1>
+              <h5>Happy Customers</h5>
+            </div>
           </div>
-          <button className={lButton} onClick={prevSlide}>
+        </div>
+        <div className={styles.coverImageButton}>
+          <button
+            onClick={prevSlide}
+            className={classNames(styles.buttontArr, styles.left)}
+          >
             ❮
           </button>
-          <button className={rButton} onClick={nextSlide}>
+          <button
+            onClick={nextSlide}
+            className={classNames(styles.buttontArr, styles.right)}
+          >
             ❯
           </button>
           <img
             src={images[current].url}
             alt={images[current].title}
-            className={styles.carousel__image}
+            className={styles.image}
           />
         </div>
       </div>
 
-      <div className={styles.carousel__dots}>
+      <div className={styles.dots}>
         {images.map((_, index) => (
           <span
             key={index}

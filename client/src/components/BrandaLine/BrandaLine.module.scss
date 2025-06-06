@@ -1,0 +1,25 @@
+@use "../../styles/mixins";
+
+.line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @media (max-width: 1200px) {
+    justify-content: center;
+  }
+
+}
+
+.lineLight{
+  @include mixins.logoLightTheme
+}
+
+.lineDark{
+  @include mixins.logoDarkTheme
+}
+
+.logoSvg{
+  padding: 10px 10px;
+  height: 30px;
+}

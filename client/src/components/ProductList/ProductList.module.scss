@@ -1,3 +1,9 @@
+.textCover{
+  display: flex;
+  justify-content: center;
+  font-size: 3rem;
+}
+
 .ulCover{
   list-style-type: none;
   display: flex;
@@ -8,13 +14,12 @@
 }
 
 .liCover {
-  background-color: #333;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 220px;
-  max-height: 400px;
+  max-height: auto;
   text-align: center;
   
   &:hover {
@@ -29,9 +34,11 @@
 }
 
 .imageWrapper {
+  margin: 10px auto;
   width: 200px;
   height: 200px;
   object-fit: contain;
+  background-color: rgba(226, 226, 226, 0.2);
 }
 
 .paginationContainer{
@@ -65,4 +72,12 @@
 .activeBtn {
   background-color: #4caf50 !important;
   color: white;
+}
+
+.priceCart{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
 }

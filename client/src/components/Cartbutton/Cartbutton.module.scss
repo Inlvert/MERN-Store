@@ -1,0 +1,13 @@
+.icon {
+  cursor: pointer;
+  transition: transform 0.2s ease, font-weight 0.2s ease;
+
+  &:hover {
+    font-weight: bold;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

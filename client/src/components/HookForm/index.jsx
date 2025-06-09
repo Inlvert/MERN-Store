@@ -38,7 +38,7 @@ function HookForm() {
     <form onSubmit={handleSubmit(onSubmitData)} className={styles.coverForm}>
       <input
         type="text"
-        {...register("name", { required: "Name обов'язкове" })}
+        {...register("name", { required: "Name required" })}
         placeholder="Name"
       />
       {errors.test && <p>{errors.test.message}</p>}
@@ -51,9 +51,9 @@ function HookForm() {
 
       <select {...register("category")}>
         <option value="">Select category...</option>
-        <option value="phone">Category phone</option>
-        <option value="computers">Category computers</option>
-        <option value="game">Category game</option>
+        <option value="T-SHIRT">T-SHIRT</option>
+        <option value="SHIRT">SHIRT</option>
+        <option value="game">JEANS</option>
       </select>
 
       <input type="number" {...register("price")} placeholder="Price" />
@@ -63,7 +63,6 @@ function HookForm() {
         onFilesChange={setFiles}
         clearFilesTrigger={clearTrigger}
       />
-
       <button type="submit">Надіслати</button>
     </form>
   );

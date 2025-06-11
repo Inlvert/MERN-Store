@@ -1,0 +1,34 @@
+@use "../../styles/mixins";
+
+.cover{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.btn {
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    font-size: large;
+  }
+
+  @media (max-width: 1200px) {
+    padding: 10px 100px;
+  }
+}
+
+.btnLight {
+  @include mixins.btnForLightTheme;
+}
+
+.btnDark {
+  @include mixins.btnForDarkTheme;
+}

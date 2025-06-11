@@ -1,0 +1,97 @@
+.textCover{
+  display: flex;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.ulCover {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+@media (min-width: 769px) {
+  .ulCover {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: unset;
+  }
+}
+
+.liCover {
+  width: 220px;
+  min-width: 220px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-height: auto;
+  text-align: center;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.navLinl{
+  text-decoration: none;
+  color: inherit;
+}
+
+.imageWrapper {
+  margin: 10px auto;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  background-color: rgba(226, 226, 226, 0.2);
+}
+
+.paginationContainer{
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+}
+
+.btn {
+  all: unset;
+  background-color: #555;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  margin: 0 0.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #777;
+  }
+
+  &:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+}
+
+.activeBtn {
+  background-color: #4caf50 !important;
+  color: white;
+}
+
+.priceCart{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+}

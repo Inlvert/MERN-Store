@@ -12,6 +12,7 @@ import classNames from "classnames";
 import ProductDetailsPage from "./pages/ProductDetails";
 import CartPage from "./pages/Cart/inldex";
 import AccountPage from "./pages/Account";
+import CategoryPage from "./pages/Category";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
           <Route path="/products/:productId" element={<ProductDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/users" element={<AccountPage />} />
+          <Route path="/category" element={<CategoryPage />} />
         </Routes>
       </header>
     </div>

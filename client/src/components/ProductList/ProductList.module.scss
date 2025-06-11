@@ -4,21 +4,34 @@
   font-size: 3rem;
 }
 
-.ulCover{
-  list-style-type: none;
+.ulCover {
+  list-style: none;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 20px;
   padding: 0;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+@media (min-width: 769px) {
+  .ulCover {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: unset;
+  }
 }
 
 .liCover {
+  width: 220px;
+  min-width: 220px;
+  flex: 0 0 auto;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 220px;
   max-height: auto;
   text-align: center;
   

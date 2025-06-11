@@ -65,6 +65,11 @@ function Header2() {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/category" className={linkColor}>
+              Category
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/login" className={linkColor}>
               Login
             </NavLink>

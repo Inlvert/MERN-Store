@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router";
+import { useNavigate, NavLink } from "react-router";
 import {
   getProducts,
   nextPage,
@@ -14,9 +14,10 @@ import Cartbutton from "../Cartbutton";
 
 function ProductList() {
   const dispatch = useDispatch();
-  const { products, totalPages, currentPage } = useSelector(
+  const { products, totalPages, currentPage, limit } = useSelector(
     (state) => state.product
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getProducts(currentPage));
@@ -51,6 +52,7 @@ function ProductList() {
     }
     return pages;
   };
+  
 
   return (
     <div>
@@ -92,6 +94,11 @@ function ProductList() {
           className={styles.btn}
         >
           Next
+        </button>
+      </div>
+      <div className={styles.paginationContainer}>
+        <button className={styles.btn} onClick={() => navigate("/category")}>
+          View All
         </button>
       </div>
     </div>

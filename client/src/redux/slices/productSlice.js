@@ -10,6 +10,7 @@ const initialState = {
   isLoading: false,
   totalPages: 0,
   currentPage: 1,
+  limit: 5,
   error: null,
 };
 
@@ -32,15 +33,30 @@ const createProduct = createAsyncThunk(
   }
 );
 
+// const getProducts = createAsyncThunk(
+//   `${SLICE_NAME}/getProducts`,
+//   async (page, thunkAPI) => {
+//     try {
+//       const response = await API.getProducts(page);
+
+//       const { data, totalPages, currentPage } = response;
+
+//       return { data, totalPages, currentPage };
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.response.data.data.errors);
+//     }
+//   }
+// );
+
 const getProducts = createAsyncThunk(
   `${SLICE_NAME}/getProducts`,
-  async (page, thunkAPI) => {
+  async ({ page, limit = null }, thunkAPI) => {
     try {
-      const response = await API.getProducts(page);
+      const response = await API.getProducts({ page, limit });
 
       const { data, totalPages, currentPage } = response;
 
-      return { data, totalPages, currentPage };
+      return { data, totalPages, currentPage, limit };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.data.errors);
     }
@@ -114,6 +130,9 @@ const productSlice = createSlice({
     setPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    resetPagination: (state) => {
+      state = initialState;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createProduct.pending, (state) => {
@@ -132,11 +151,12 @@ const productSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getProducts.fulfilled, (state, action) => {
-      const { data, totalPages, currentPage } = action.payload;
+      const { data, totalPages, currentPage, limit } = action.payload;
       state.isLoading = false;
       state.products = data;
       state.totalPages = totalPages;
       state.currentPage = currentPage;
+      state.limit = limit;
     });
     builder.addCase(getProducts.rejected, (state, action) => {
       state.isLoading = false;
@@ -171,7 +191,7 @@ const productSlice = createSlice({
 
 const { reducer: productReducer, actions } = productSlice;
 
-export const { nextPage, prevPage, setPage } = actions;
+export const { nextPage, prevPage, setPage, resetPagination } = actions;
 
 export { createProduct, getProducts, getProduct, addProductToCart };
 

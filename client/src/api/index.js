@@ -80,13 +80,25 @@ export const createProduct = async (productData) => {
   return response;
 };
 
-export const getProducts = async (page) => {
-  const response = await httpClient.get(`/products?page=${page}`);
+// export const getProducts = async (page) => {
+//   const response = await httpClient.get(`/products?page=${page}`);
+//   console.log(response.data);
+//   return {
+//     data: response.data.data,
+//     totalPages: response.data.totalPages,
+//     currentPage: +response.data.currentPage,
+//   };
+// };
+
+export const getProducts = async ({page, limit = null}) => {
+  const params = limit ? `?page=${page}&limit=${limit}` : `?page=${page}`
+  const response = await httpClient.get(`/products${params}`);
   console.log(response.data);
   return {
     data: response.data.data,
     totalPages: response.data.totalPages,
     currentPage: +response.data.currentPage,
+    limit: limit || null,
   };
 };
 

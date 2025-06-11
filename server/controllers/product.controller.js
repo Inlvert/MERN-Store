@@ -34,7 +34,7 @@ module.exports.getAllProducts = async (req, res, next) => {
     res.send({
       data: products,
       totalPages: Math.ceil(count / limit),
-      currentPage: page,
+      currentPage: +page,
     });
   } catch (error) {
     next(error);
